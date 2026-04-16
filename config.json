@@ -1,0 +1,140 @@
+{
+  "_comment": "To run this pipeline for a different industry, update the 'seller', 'icp', and 'research' sections only. Agent code does not change.",
+
+  "models": {
+    "research":    "gpt-4o-mini",
+    "discovery":   "gpt-4o-mini",
+    "enrichment":  "gpt-4o",
+    "stakeholder": "gpt-4o-mini",
+    "outreach":    "gpt-4o"
+  },
+
+  "seller": {
+    "company":     "DuPont Tedlar",
+    "product":     "Tedlar PVF protective overlaminate films",
+    "description": "DuPont Tedlar makes PVF (polyvinyl fluoride) protective overlaminate films used to protect outdoor graphics, signage, vehicle wraps, and architectural surfaces from UV, weathering, graffiti, and abrasion.",
+    "value_props": [
+      "UV durability 12-20 years outdoor lifespan",
+      "anti-graffiti and easy-clean surface",
+      "non-PFAS formulation",
+      "conformable for complex wrap applications",
+      "proven with tier-1 graphic film manufacturers"
+    ]
+  },
+
+  "icp": {
+    "description": "Companies that manufacture, specify, or apply protective overlaminate films for outdoor graphics, signage, and vehicle wraps",
+    "ideal_signals": [
+      "large-format printing",
+      "signage fabrication",
+      "vehicle wraps",
+      "architectural graphics",
+      "fleet graphics",
+      "graphic film manufacturing",
+      "protective film distribution"
+    ],
+    "revenue_minimum_usd": 10000000,
+    "icp_score_threshold": 0.7
+  },
+
+  "scoring_weights": {
+    "industry_fit":       0.40,
+    "revenue_tier":       0.25,
+    "event_confirmation": 0.20,
+    "product_overlap":    0.15
+  },
+
+  "revenue_tiers": {
+    "under_10m":    0.3,
+    "10m_to_100m":  0.6,
+    "over_100m":    1.0
+  },
+
+  "event_confirmation_scores": {
+    "confirmed_exhibitor": 1.0,
+    "inferred_attendee":   0.5,
+    "low_confidence":      0.0
+  },
+
+  "research": {
+    "industry": {
+      "description": "Protective PVF overlaminate films for outdoor graphics, signage, and vehicle wraps",
+      "verticals": [
+        "signage fabrication",
+        "large-format printing",
+        "vehicle wraps",
+        "wide-format graphics",
+        "architectural graphics",
+        "fleet graphics",
+        "protective films",
+        "graphic film distribution"
+      ],
+      "buyer_keywords": [
+        "sign makers",
+        "wide-format printers",
+        "wrap installers",
+        "graphics film manufacturers",
+        "vinyl film distributors",
+        "signage companies"
+      ]
+    },
+    "seed_events": [
+      "ISA International Sign Expo",
+      "PRINTING United Expo",
+      "SEMA Show",
+      "FESPA Global Print Expo",
+      "Graphics of the Americas",
+      "NAPICS",
+      "Graphics Pro Expo"
+    ],
+    "event_criteria": {
+      "min_exhibitor_count": 50,
+      "geography": "US-based or globally significant with strong US exhibitor presence — North America preferred",
+      "exclude_regions": ["UK-only", "Europe-only", "Australia-only", "Asia-only"],
+      "exclude_types": [
+        "webinar",
+        "award ceremony",
+        "single-brand user conference",
+        "DTF-only",
+        "embroidery-only",
+        "textile-only",
+        "3D printing-only"
+      ]
+    },
+    "max_events": 20
+  },
+
+  "discovery": {
+    "max_companies_per_event": 25,
+    "serper_fallback_queries": [
+      "{event} exhibitors site:linkedin.com OR site:businesswire.com",
+      "{event} 2025 companies attending exhibiting"
+    ]
+  },
+
+  "stakeholders": {
+    "technical_buyer_titles": [
+      "VP Product", "Director R&D", "Head of Materials",
+      "VP Engineering", "Director of Materials Science",
+      "VP Innovation", "Director Product Development"
+    ],
+    "business_buyer_titles": [
+      "VP Operations", "Procurement Director", "COO",
+      "Director of Sourcing", "VP Supply Chain",
+      "Director Supply Chain", "Director Market Development",
+      "Director Procurement", "VP Procurement"
+    ]
+  },
+
+  "parallel": {
+    "enrichment_workers": 5,
+    "stakeholder_workers": 3
+  },
+
+  "freshness": {
+    "events_max_age_hours":   168,
+    "leads_max_age_hours":    720,
+    "contacts_max_age_hours": 336,
+    "outreach_never_expires": true
+  }
+}
